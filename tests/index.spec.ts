@@ -34,4 +34,12 @@ describe("skland-x client", () => {
     expect(await client.storage.hasItem(STORAGE_CRED_KEY)).toBe(true)
     expect(await client.storage.hasItem(STORAGE_OAUTH_TOKEN_KEY)).toBe(true)
   })
+
+  it('should throw error', async () => {
+    const client = createClient()
+
+    await expect(client.player.getBinding)
+      .rejects
+      .toThrow('【skland-x】森空岛 cred 未获取')
+  })
 })
