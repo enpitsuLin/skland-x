@@ -1,4 +1,4 @@
-import type { Binding, ClientPlayer, ClientSubtle, Hypergryph, SklandResponse } from '../types'
+import type { ClientPlayer, ClientSubtle, Hypergryph, Player, PlayerInfo, SklandResponse } from '../types'
 import { signRequest } from '../utils/signature'
 import { clientCtx, useClientContext } from './ctx'
 
@@ -54,8 +54,16 @@ function buildPlayer(): ClientPlayer {
   const { $fetch, storage } = useClientContext()
   return {
     getBinding() {
-      return $fetch<SklandResponse<Binding>>(
-        '/api/v1/game/player/binding',
+      return $fetch<SklandResponse<Player>>(
+        `/api/v1/game/player/binding`,
+        {
+          onRequest: ctx => signRequest(ctx, storage),
+        },
+      ).then(res => res.data)
+    },
+    async getInfo() {
+      return $fetch<SklandResponse<PlayerInfo>>(
+        `/api/v1/game/player/info`,
         {
           onRequest: ctx => signRequest(ctx, storage),
         },

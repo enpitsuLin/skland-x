@@ -1,5 +1,6 @@
 import type { $Fetch } from "ofetch"
 import type { Driver, Storage } from "unstorage"
+import type { Player, PlayerInfo } from "./player"
 
 export interface ClientConfig {
   baseURL?: string
@@ -35,9 +36,8 @@ export interface Hypergryph {
   /**
    * 通过 OAuth 登录凭证验证鹰角网络通行证
    *
-   * @description 用于获取 cred 和 token 参数
    * @param token 鹰角网络通行证账号的登录凭证 grant_code
-   * @return 返回 cred 和可以用于 `signIn()`的 token 参数
+   * @return 返回可以用于 `signIn()`的 grant_code 参数
    */
   authorize: (token: string) => Promise<{ code: string, uid: string }>
 }
@@ -47,29 +47,7 @@ export interface ClientScore {
 }
 
 export interface ClientPlayer {
-  getBinding: () => Promise<Binding>
+  getBinding: () => Promise<Player>
+  getInfo: () => Promise<PlayerInfo>
 }
 
-
-export interface SklandResponse<T> {
-  code: number
-  message: string
-  data: T
-}
-
-export interface Binding {
-  list: {
-    appCode: string
-    appName: string
-    bindingList: {
-      uid: string
-      isOfficial: boolean
-      isDefault: boolean
-      channelMasterId: string
-      channelName: string
-      nickName: string
-      isDelete: boolean
-    }[]
-    defaultUid: string
-  }[]
-} 
