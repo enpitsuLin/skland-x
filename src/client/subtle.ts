@@ -15,8 +15,11 @@ export function buildSubtle(): ClientSubtle {
 
 function buildHypergryph(): Hypergryph {
   const { $fetch } = useClientContext()
+  const $fetchHypergryph = $fetch.create({
+    baseURL: 'https://as.hypergryph.com',
+  })
   return {
-    async authorize(token: string) {
+    async grantAuthorizeCode(token: string) {
       interface GrantResponse {
         status: number
         type: string
@@ -24,16 +27,10 @@ function buildHypergryph(): Hypergryph {
         data?: { code: string, uid: string }
       }
 
-      const data = await $fetch<GrantResponse>(
-        'https://as.hypergryph.com/user/oauth2/v2/grant',
+      const data = await $fetchHypergryph<GrantResponse>(
+        '/user/oauth2/v2/grant',
         {
           method: 'POST',
-          headers: {
-            'User-Agent': 'Skland/1.21.0 (com.hypergryph.skland; build:102100065; iOS 17.6.0; ) Alamofire/5.7.1',
-            'Accept-Encoding': 'gzip',
-            'Connection': 'close',
-            'Content-Type': 'application/json',
-          },
           body: {
             appCode: '4ca99fa6b56cc2ba',
             token,
