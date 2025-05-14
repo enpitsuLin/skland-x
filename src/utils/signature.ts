@@ -1,7 +1,7 @@
 import type { FetchContext } from 'ofetch'
 import type { Storage } from 'unstorage'
-import assert from 'tiny-invariant'
 import { SERVER_TIMESTAMP_OFFSET, STORAGE_CREDENTIAL_KEY, STORAGE_OAUTH_TOKEN_KEY } from '../constants'
+import { assert } from './assert'
 import { hmacSha256, md5 } from './crypto'
 
 function parseURL(ctx: FetchContext): URL {
