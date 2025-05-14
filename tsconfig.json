@@ -17,7 +17,6 @@
     "noUnusedLocals": true,
     "declaration": true,
     "esModuleInterop": true,
-    "isolatedDeclarations": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true

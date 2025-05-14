@@ -1,15 +1,20 @@
-import type { $Fetch } from "ofetch"
-import type { ClientSubtle, Hypergryph } from "../types"
+import type { Binding, ClientPlayer, ClientSubtle, Hypergryph, SklandResponse } from '../types'
+import { signRequest } from '../utils/signature'
+import { clientCtx, useClientContext } from './ctx'
 
-
-export function buildSubtle($fetch: $Fetch): ClientSubtle {
-  return {
-    hypergryph: buildHypergryph($fetch),
-    score: {}
-  }
+export function buildSubtle(): ClientSubtle {
+  const context = useClientContext()
+  return clientCtx.call(context, () => {
+    return {
+      hypergryph: buildHypergryph(),
+      score: {},
+      player: buildPlayer(),
+    }
+  })
 }
 
-function buildHypergryph($fetch: $Fetch): Hypergryph {
+function buildHypergryph(): Hypergryph {
+  const { $fetch } = useClientContext()
   return {
     async authorize(token: string) {
       interface GrantResponse {
@@ -41,6 +46,20 @@ function buildHypergryph($fetch: $Fetch): Hypergryph {
         throw new Error(`【skland-x】登录获取 cred 错误:${data.msg}`)
 
       return data.data
-    }
+    },
+  }
+}
+
+function buildPlayer(): ClientPlayer {
+  const { $fetch, storage } = useClientContext()
+  return {
+    getBinding() {
+      return $fetch<SklandResponse<Binding>>(
+        '/api/v1/game/player/binding',
+        {
+          onRequest: ctx => signRequest(ctx, storage),
+        },
+      ).then(res => res.data)
+    },
   }
 }

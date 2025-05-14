@@ -1,7 +1,7 @@
 /// <reference types="vitest/importMeta" />
-
 import { describe, expect, it } from 'vitest'
-import { createClient, STORAGE_CRED_KEY, STORAGE_OAUTH_TOKEN_KEY } from '../src'
+import { createClient } from '../src'
+import { STORAGE_CRED_KEY, STORAGE_OAUTH_TOKEN_KEY } from '../src/constants'
 
 describe("skland-x client", () => {
 
@@ -10,10 +10,11 @@ describe("skland-x client", () => {
     expect(client).toHaveProperty('$fetch')
     expect(client).toHaveProperty('signIn')
     expect(client).toHaveProperty('subtle')
-    expect(client).toHaveProperty('player')
 
     expect(client.subtle).toHaveProperty('hypergryph')
     expect(client.subtle).toHaveProperty('score')
+    expect(client.subtle).toHaveProperty('player')
+    
     expect(client.subtle.hypergryph).toHaveProperty('authorize')
   })
 
@@ -38,7 +39,7 @@ describe("skland-x client", () => {
   it('should throw error', async () => {
     const client = createClient()
 
-    await expect(client.player.getBinding)
+    await expect(client.subtle.player.getBinding)
       .rejects
       .toThrow('【skland-x】森空岛 cred 未获取')
   })

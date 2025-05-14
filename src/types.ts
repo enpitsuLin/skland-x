@@ -18,7 +18,6 @@ export interface Client {
   $fetch: $Fetch
   signIn: (token: string) => Promise<void>
   subtle: ClientSubtle
-  player: ClientPlayer
   storage: Storage<string>
 }
 
@@ -28,8 +27,8 @@ export interface ClientSubtle {
   /**
    * @deprecated 森空岛 App 相关，有风控的一些功能
    */
-  // eslint-disable-next-line ts/no-empty-object-type
-  score: {}
+  score: ClientScore
+  player: ClientPlayer
 }
 
 export interface Hypergryph {
@@ -41,6 +40,10 @@ export interface Hypergryph {
    * @return 返回 cred 和可以用于 `signIn()`的 token 参数
    */
   authorize: (token: string) => Promise<{ code: string, uid: string }>
+}
+
+export interface ClientScore {
+
 }
 
 export interface ClientPlayer {
