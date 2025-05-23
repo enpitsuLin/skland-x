@@ -1,4 +1,5 @@
 import type { ClientPlayer, ClientSubtle, HypergrayphonResponse, Hypergryph, Player, PlayerInfo, SklandResponse } from '../types'
+import defu from 'defu'
 import { signRequest } from '../utils/signature'
 import { clientCtx, useClientContext } from './ctx'
 
@@ -51,7 +52,7 @@ function buildHypergryph(): Hypergryph {
         {
           query: { scanId },
         },
-      ) 
+      )
 
       if (res.status !== '0')
         throw new Error(`【skland-x】获取扫码登录状态错误:${res.msg}`)
@@ -100,15 +101,25 @@ function buildHypergryph(): Hypergryph {
 
       return res.data.token
     },
-    async grantAuthorizeCode(token: string) {
+    async grantAuthorizeCode(
+      token: string,
+      options?: {
+        appCode?: string
+        type?: number
+      },
+    ) {
+      const { appCode, type } = defu(options, {
+        appCode: '4ca99fa6b56cc2ba',
+        type: 0,
+      })
       const res = await $fetchHypergryph<HypergrayphonResponse<{ code: string, uid: string }>>(
         '/user/oauth2/v2/grant',
         {
           method: 'POST',
           body: {
-            appCode: '4ca99fa6b56cc2ba',
+            appCode,
             token,
-            type: 0,
+            type,
           },
         },
       )

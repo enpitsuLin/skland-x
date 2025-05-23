@@ -75,9 +75,13 @@ export interface Hypergryph {
    * 通过 OAuth 登录凭证验证鹰角网络通行证
    *
    * @param token 鹰角网络通行证账号的登录凭证 authorize_code
+   * @param options 可以控制授权应用的类型和应用代码等，一般没什么用。
    * @return 返回可以用于 `signIn()`的 authorize_code 参数
    */
-  grantAuthorizeCode: (token: string) => Promise<{ code: string, uid: string }>
+  grantAuthorizeCode: (token: string, options?: {
+    appCode?: string
+    type?: number
+  }) => Promise<{ code: string, uid: string }>
 }
 
 export interface ClientScore {
