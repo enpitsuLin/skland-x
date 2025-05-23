@@ -8,3 +8,10 @@ export interface SklandResponse<T> {
   message: string
   data: T
 }
+
+export interface HypergrayphonResponse<Data, Message = string> {
+  status: string
+  type: string
+  msg: Message
+  data: Data
+}

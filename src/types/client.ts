@@ -39,6 +39,39 @@ export interface ClientSubtle {
 
 export interface Hypergryph {
   /**
+   * 发送手机验证码
+   * @param phone 手机号
+   */
+  sendPhoneCode: (phone: string) => Promise<void>
+  /**
+   * 生成扫码登录 URL
+   * @returns 返回扫码登录 ID 和 森空岛扫码登录 URL。
+   */
+  generateScanLoginUrl: () => Promise<{ scanId: string, scanUrl: string }>
+  /**
+   * 获取扫码登录状态
+   * @param scanId 扫码登录 ID
+   */
+  getScanStatus: (scanId: string) => Promise<{ scanCode: string, scanStatus: string }>
+
+  /**
+   * 通过手机号和密码获取鹰角 OAuth token
+   * @param data 手机号和密码
+   */
+  getOAuthTokenByPhonePassword: (data: { phone: string, password: string }) => Promise<string>
+  /**
+   * 通过手机号和验证码获取鹰角 OAuth token
+   * @param data 手机号和验证码
+   */
+  getOAuthTokenByPhoneCode: (data: { phone: string, code: string }) => Promise<string>
+  /**
+   * 通过扫码获取鹰角 OAuth token
+   * @param scanCode 扫码登录 ID
+   * @returns 返回鹰角 OAuth token
+   */
+  getOAuthTokenByScanCode: (scanCode: string) => Promise<string>
+
+  /**
    * 通过 OAuth 登录凭证验证鹰角网络通行证
    *
    * @param token 鹰角网络通行证账号的登录凭证 authorize_code
