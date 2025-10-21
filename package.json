@@ -6,13 +6,13 @@
   "description": "A client for Skland, a game by Hypergryph.",
   "author": "enpitsulin<enpitsulin@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/enpitsulin/skland-x",
+  "homepage": "https://github.com/enpitsuLin/skland-x",
   "repository": {
     "type": "git",
-    "url": "https://github.com/enpitsulin/skland-x.git"
+    "url": "git+https://github.com/enpitsuLin/skland-x.git"
   },
   "bugs": {
-    "url": "https://github.com/enpitsulin/skland-x/issues"
+    "url": "https://github.com/enpitsuLin/skland-x/issues"
   },
   "keywords": [
     "skland",
