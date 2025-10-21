@@ -31,7 +31,7 @@ export interface ClientSubtle {
    */
   hypergryph: Hypergryph
   /**
-   * @deprecated 森空岛 App 相关，有风控的一些功能
+   * @deprecated 森空岛 App 相关，有风控的一些功能，暂未实现
    */
   score: ClientScore
   player: ClientPlayer
