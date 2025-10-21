@@ -1,6 +1,7 @@
 export * from './building'
 export * from './character'
 export * from './client'
+export * from './game'
 export * from './player'
 
 export interface SklandResponse<T> {

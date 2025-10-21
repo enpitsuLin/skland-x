@@ -199,7 +199,7 @@ export interface ManufactureFormulaInfo {
   costPoint: number
 }
 
-export interface Player {
+export interface PlayerBinding {
   list: {
     appCode: string
     appName: string

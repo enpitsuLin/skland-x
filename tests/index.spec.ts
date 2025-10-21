@@ -15,11 +15,15 @@ describe("skland-x client", () => {
     expect(client.subtle).toHaveProperty('hypergryph')
     expect(client.subtle).toHaveProperty('score')
     expect(client.subtle).toHaveProperty('player')
+    expect(client.subtle).toHaveProperty('game')
 
     expect(client.subtle.hypergryph).toHaveProperty('grantAuthorizeCode')
 
     expect(client.subtle.player).toHaveProperty('getBinding')
     expect(client.subtle.player).toHaveProperty('getInfo')
+
+    expect(client.subtle.game).toHaveProperty('getAttendanceStatus')
+    expect(client.subtle.game).toHaveProperty('attendance')
   })
 
   it('should authorize hypergryph', async () => {
