@@ -10,7 +10,7 @@ import { clientCtx } from './ctx'
 import { buildSubtle } from './subtle'
 
 export function createClient(config: ClientConfig = {}): Client {
-  const { baseURL, timeout, driver } = defu(config, {
+  const { baseURL, timeout, driver } = defu<ClientConfig, [{ baseURL: string, timeout: number }]>(config, {
     baseURL: 'https://zonai.skland.com',
     timeout: 30 * 1000,
   })
