@@ -6,8 +6,8 @@ import { STORAGE_CREDENTIAL_KEY, STORAGE_OAUTH_TOKEN_KEY, STORAGE_USER_ID_KEY } 
 import { assert } from '../utils/assert'
 import { getDid } from '../utils/env'
 import { signRequest } from '../utils/signature'
+import { buildCollections } from './collections'
 import { clientCtx } from './ctx'
-import { buildSubtle } from './subtle'
 
 export function createClient(config: ClientConfig = {}): Client {
   const { baseURL, timeout, driver } = defu<ClientConfig, [{ baseURL: string, timeout: number }]>(config, {
@@ -82,14 +82,14 @@ export function createClient(config: ClientConfig = {}): Client {
     ])
   }
 
-  const subtle = clientCtx.call({ storage, $fetch }, buildSubtle)
+  const collections = clientCtx.call({ storage, $fetch }, buildCollections)
 
   const client = Object.freeze({
     $fetch,
     storage,
     signIn,
     refresh,
-    subtle,
+    collections,
   })
 
   return client

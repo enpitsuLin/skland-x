@@ -3,7 +3,7 @@ import type { AttendanceAwards, AttendanceStatus, ClientGame, SklandResponse } f
 import { signRequest } from '../../utils/signature'
 import { useClientContext } from '../ctx'
 
-export function buildSubtleGame(): ClientGame {
+export function buildGameCollection(): ClientGame {
   const { $fetch, storage } = useClientContext()
 
   async function fetchGame<T = any>(

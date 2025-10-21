@@ -3,7 +3,7 @@ import type { ClientPlayer, PlayerBinding, PlayerInfo, SklandResponse } from '..
 import { signRequest } from '../../utils/signature'
 import { useClientContext } from '../ctx'
 
-export function buildSubtlePlayer(): ClientPlayer {
+export function buildPlayerCollection(): ClientPlayer {
   const { $fetch, storage } = useClientContext()
   async function fetchPlayer<T = any>(
     url: string,

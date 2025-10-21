@@ -3,7 +3,7 @@ import type { HypergrayphonResponse, Hypergryph } from '../../types'
 import defu from 'defu'
 import { useClientContext } from '../ctx'
 
-export function buildSubtleHypergryph(): Hypergryph {
+export function buildHypergryphCollection(): Hypergryph {
   const { $fetch } = useClientContext()
   const $fetchHypergryph = $fetch.create({
     baseURL: 'https://as.hypergryph.com',
