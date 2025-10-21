@@ -20,11 +20,11 @@ export interface Client {
   $fetch: $Fetch
   signIn: (authorizeCode: string) => Promise<void>
   refresh: () => Promise<void>
-  subtle: ClientSubtle
+  collections: ClientCollections
   storage: Storage<string>
 }
 
-export interface ClientSubtle {
+export interface ClientCollections {
   /**
    * 鹰角通行证相关
    *

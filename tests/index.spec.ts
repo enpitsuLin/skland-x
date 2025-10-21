@@ -11,31 +11,31 @@ describe('skland-x client', () => {
     expect(client).toHaveProperty('refresh')
     expect(client).toHaveProperty('subtle')
 
-    expect(client.subtle).toHaveProperty('hypergryph')
-    expect(client.subtle).toHaveProperty('score')
-    expect(client.subtle).toHaveProperty('player')
-    expect(client.subtle).toHaveProperty('game')
+    expect(client.collections).toHaveProperty('hypergryph')
+    expect(client.collections).toHaveProperty('score')
+    expect(client.collections).toHaveProperty('player')
+    expect(client.collections).toHaveProperty('game')
 
-    expect(client.subtle.hypergryph).toHaveProperty('grantAuthorizeCode')
+    expect(client.collections.hypergryph).toHaveProperty('grantAuthorizeCode')
 
-    expect(client.subtle.player).toHaveProperty('getBinding')
-    expect(client.subtle.player).toHaveProperty('getInfo')
+    expect(client.collections.player).toHaveProperty('getBinding')
+    expect(client.collections.player).toHaveProperty('getInfo')
 
-    expect(client.subtle.game).toHaveProperty('getAttendanceStatus')
-    expect(client.subtle.game).toHaveProperty('attendance')
+    expect(client.collections.game).toHaveProperty('getAttendanceStatus')
+    expect(client.collections.game).toHaveProperty('attendance')
   })
 
   it('should authorize hypergryph', async () => {
     const client = createClient()
 
-    const data = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+    const data = await client.collections.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
     expect(data).toHaveProperty('code')
     expect(data).toHaveProperty('uid')
   })
 
   it('should sign in skland', async () => {
     const client = createClient()
-    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+    const res = await client.collections.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
 
     await client.signIn(res.code)
 
@@ -46,7 +46,7 @@ describe('skland-x client', () => {
   it('should throw error', async () => {
     const client = createClient()
 
-    await expect(client.subtle.player.getBinding)
+    await expect(client.collections.player.getBinding)
       .rejects
       .toThrow('【skland-x】森空岛 cred 未获取')
   })
@@ -54,7 +54,7 @@ describe('skland-x client', () => {
   it('should refresh token', async () => {
     const client = createClient()
 
-    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+    const res = await client.collections.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
 
     await client.signIn(res.code)
 
@@ -70,11 +70,11 @@ describe('skland-x client', () => {
   it('should get player binding', async () => {
     const client = createClient()
 
-    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+    const res = await client.collections.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
 
     await client.signIn(res.code)
 
-    const binding = await client.subtle.player.getBinding()
+    const binding = await client.collections.player.getBinding()
  
     expect(binding).toHaveProperty('list', expect.any(Array))
   })
@@ -82,11 +82,11 @@ describe('skland-x client', () => {
   it('should get player info', async () => {
     const client = createClient()
 
-    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+    const res = await client.collections.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
 
     await client.signIn(res.code)
 
-    const info = await client.subtle.player.getInfo({ uid: import.meta.env.VITE_SKLAND_UID! })
+    const info = await client.collections.player.getInfo({ uid: import.meta.env.VITE_SKLAND_UID! })
     
     expect(info).toHaveProperty('currentTs') 
   })
@@ -94,11 +94,11 @@ describe('skland-x client', () => {
   it('should get attendance status', async () => {
     const client = createClient()
 
-    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+    const res = await client.collections.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
 
     await client.signIn(res.code)
 
-    const data = await client.subtle.game.getAttendanceStatus({ uid: import.meta.env.VITE_SKLAND_UID!, gameId: '1' })
+    const data = await client.collections.game.getAttendanceStatus({ uid: import.meta.env.VITE_SKLAND_UID!, gameId: '1' })
     
     expect(data).toHaveProperty('currentTs')
     expect(data).toHaveProperty('calendar')
