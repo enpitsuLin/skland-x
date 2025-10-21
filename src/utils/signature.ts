@@ -40,6 +40,7 @@ export async function signRequest(ctx: FetchContext, storage: Storage<string>): 
     headers.append(key, value)
   })
   headers.append('sign', signature)
+  headers.append('cred', cred)
 
   ctx.options.headers = headers
 }

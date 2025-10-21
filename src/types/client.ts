@@ -1,6 +1,7 @@
-import type { $Fetch } from "ofetch"
-import type { Driver, Storage } from "unstorage"
-import type { Player, PlayerInfo } from "./player"
+import type { $Fetch } from 'ofetch'
+import type { Driver, Storage } from 'unstorage'
+import type { AttendanceAwards, AttendanceStatus } from './game'
+import type { PlayerBinding, PlayerInfo } from './player'
 
 export interface ClientConfig {
   baseURL?: string
@@ -24,7 +25,7 @@ export interface Client {
 }
 
 export interface ClientSubtle {
-  /** 
+  /**
    * 鹰角通行证相关
    *
    * 提供在没有森空岛授权凭证的情况下，通过鹰角通行证获取森空岛登录的授权凭证的一些方式
@@ -34,7 +35,14 @@ export interface ClientSubtle {
    * @deprecated 森空岛 App 相关，有风控的一些功能，暂未实现
    */
   score: ClientScore
+  /**
+   * 玩家和绑定角色相关
+   */
   player: ClientPlayer
+  /**
+   * 游戏相关，签到等
+   */
+  game: ClientGame
 }
 
 export interface Hypergryph {
@@ -89,7 +97,18 @@ export interface ClientScore {
 }
 
 export interface ClientPlayer {
-  getBinding: () => Promise<Player>
-  getInfo: () => Promise<PlayerInfo>
+  getBinding: () => Promise<PlayerBinding>
+  getInfo: (query: { uid: string }) => Promise<PlayerInfo>
 }
 
+export interface ClientGame {
+  /**
+   * 获取签到状态
+   */
+  getAttendanceStatus: (query: { uid: string, gameId: string }) => Promise<AttendanceStatus>
+  /**
+   * 执行签到
+   * @param body 签到请求体
+   */
+  attendance: (body: { uid: string, gameId: string }) => Promise<AttendanceAwards>
+}

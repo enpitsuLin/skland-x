@@ -2,7 +2,7 @@ import type { Client, ClientConfig, SklandResponse } from '../types'
 import { defu } from 'defu'
 import { createFetch } from 'ofetch'
 import { createStorage } from 'unstorage'
-import { STORAGE_CREDENTIAL_KEY, STORAGE_OAUTH_TOKEN_KEY } from '../constants'
+import { STORAGE_CREDENTIAL_KEY, STORAGE_OAUTH_TOKEN_KEY, STORAGE_USER_ID_KEY } from '../constants'
 import { assert } from '../utils/assert'
 import { getDid } from '../utils/env'
 import { signRequest } from '../utils/signature'
@@ -50,6 +50,7 @@ export function createClient(config: ClientConfig = {}): Client {
     await storage.setItems([
       { key: STORAGE_OAUTH_TOKEN_KEY, value: data.token },
       { key: STORAGE_CREDENTIAL_KEY, value: data.cred },
+      { key: STORAGE_USER_ID_KEY, value: data.userId },
     ])
   }
 
