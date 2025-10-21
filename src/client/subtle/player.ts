@@ -18,11 +18,12 @@ export function buildSubtlePlayer(): ClientPlayer {
 
       return res.data
     },
-    async getInfo() {
+    async getInfo(query) {
       const res = await $fetch<SklandResponse<PlayerInfo>>(
         `/api/v1/game/player/info`,
         {
           onRequest: ctx => signRequest(ctx, storage),
+          query
         },
       )
 

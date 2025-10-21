@@ -3,8 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { createClient } from '../src'
 import { STORAGE_CREDENTIAL_KEY, STORAGE_OAUTH_TOKEN_KEY } from '../src/constants'
 
-describe("skland-x client", () => {
-
+describe('skland-x client', () => {
   it('should have some properties', () => {
     const client = createClient()
     expect(client).toHaveProperty('$fetch')
@@ -66,5 +65,44 @@ describe("skland-x client", () => {
     const tokenNew = await client.storage.getItem(STORAGE_OAUTH_TOKEN_KEY)
     expect(tokenNew).toBeDefined()
     expect(tokenNew).not.toBe('123')
+  })
+
+  it('should get player binding', async () => {
+    const client = createClient()
+
+    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+
+    await client.signIn(res.code)
+
+    const binding = await client.subtle.player.getBinding()
+ 
+    expect(binding).toHaveProperty('list', expect.any(Array))
+  })
+
+  it('should get player info', async () => {
+    const client = createClient()
+
+    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+
+    await client.signIn(res.code)
+
+    const info = await client.subtle.player.getInfo({ uid: import.meta.env.VITE_SKLAND_UID! })
+    
+    expect(info).toHaveProperty('currentTs') 
+  })
+
+  it('should get attendance status', async () => {
+    const client = createClient()
+
+    const res = await client.subtle.hypergryph.grantAuthorizeCode(import.meta.env.VITE_SKLAND_TOKEN!)
+
+    await client.signIn(res.code)
+
+    const data = await client.subtle.game.getAttendanceStatus({ uid: import.meta.env.VITE_SKLAND_UID!, gameId: '1' })
+    
+    expect(data).toHaveProperty('currentTs')
+    expect(data).toHaveProperty('calendar')
+    expect(data).toHaveProperty('records')
+    expect(data).toHaveProperty('resourceInfoMap')
   })
 })

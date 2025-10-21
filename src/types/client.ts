@@ -98,16 +98,17 @@ export interface ClientScore {
 
 export interface ClientPlayer {
   getBinding: () => Promise<PlayerBinding>
-  getInfo: () => Promise<PlayerInfo>
+  getInfo: (query: { uid: string }) => Promise<PlayerInfo>
 }
 
 export interface ClientGame {
   /**
    * 获取签到状态
    */
-  getAttendanceStatus: () => Promise<AttendanceStatus>
+  getAttendanceStatus: (query: { uid: string, gameId: string }) => Promise<AttendanceStatus>
   /**
    * 执行签到
+   * @param body 签到请求体
    */
-  attendance: () => Promise<AttendanceAwards>
+  attendance: (body: { uid: string, gameId: string }) => Promise<AttendanceAwards>
 }

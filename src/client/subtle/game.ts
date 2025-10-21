@@ -5,11 +5,12 @@ import { useClientContext } from "../ctx"
 export function buildSubtleGame(): ClientGame {
   const { $fetch, storage } = useClientContext()
   return {
-    async getAttendanceStatus() {
+    async getAttendanceStatus(query) {
       const res = await $fetch<SklandResponse<AttendanceStatus>>(
-        `/api/v1/game/attendance/status`,
+        `/api/v1/game/attendance`,
         {
           onRequest: ctx => signRequest(ctx, storage),
+          query,
         },
       )
       if (res.code !== 0)
@@ -17,11 +18,13 @@ export function buildSubtleGame(): ClientGame {
 
       return res.data
     },
-    async attendance() {
+    async attendance(body) {
       const res = await $fetch<SklandResponse<AttendanceAwards>>(
-        `/api/v1/game/attendance/attend`,
+        `/api/v1/game/attendance`,
         {
+          method: 'POST',
           onRequest: ctx => signRequest(ctx, storage),
+          body,
         },
       )
       if (res.code !== 0)
