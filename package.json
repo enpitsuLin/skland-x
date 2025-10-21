@@ -3,10 +3,24 @@
   "type": "module",
   "version": "0.0.1",
   "packageManager": "pnpm@10.10.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
-  "keywords": [],
+  "description": "A client for Skland, a game by Hypergryph.",
+  "author": "enpitsulin<enpitsulin@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/enpitsulin/skland-x",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enpitsulin/skland-x.git"
+  },
+  "bugs": {
+    "url": "https://github.com/enpitsulin/skland-x/issues"
+  },
+  "keywords": [
+    "skland",
+    "hypergryph",
+    "game",
+    "client",
+    "api"
+  ],
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
