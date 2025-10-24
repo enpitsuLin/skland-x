@@ -9,7 +9,7 @@ describe('skland-x client', () => {
     expect(client).toHaveProperty('$fetch')
     expect(client).toHaveProperty('signIn')
     expect(client).toHaveProperty('refresh')
-    expect(client).toHaveProperty('subtle')
+    expect(client).toHaveProperty('collections')
 
     expect(client.collections).toHaveProperty('hypergryph')
     expect(client.collections).toHaveProperty('score')
