@@ -1,5 +1,5 @@
 import type { FetchOptions } from 'ofetch'
-import type { ClientPlayer, PlayerBinding, PlayerInfo, SklandResponse } from '../../types'
+import type { AppBindingList, ClientPlayer, PlayerInfo, SklandResponse } from '../../types'
 import { signRequest } from '../../utils/signature'
 import { useClientContext } from '../ctx'
 
@@ -26,7 +26,7 @@ export function buildPlayerCollection(): ClientPlayer {
   }
   return {
     async getBinding() {
-      const res = await fetchPlayer<PlayerBinding>(
+      const res = await fetchPlayer<AppBindingList>(
         '/api/v1/game/player/binding',
         {},
         '获取游戏绑定信息错误',

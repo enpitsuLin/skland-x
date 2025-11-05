@@ -199,22 +199,24 @@ export interface ManufactureFormulaInfo {
   costPoint: number
 }
 
-export interface PlayerBinding {
+export interface AppBindingPlayer {
+  uid: string
+  isOfficial: boolean
+  isDefault: boolean
+  channelMasterId: string
+  channelName: string
+  nickName: string
+  isDelete: boolean
+}
+
+export interface AppBindingList {
   list: {
     appCode: string
     appName: string
-    bindingList: {
-      uid: string
-      isOfficial: boolean
-      isDefault: boolean
-      channelMasterId: string
-      channelName: string
-      nickName: string
-      isDelete: boolean
-    }[]
+    bindingList: []
     defaultUid: string
   }[]
-} 
+}
 
 
 export interface PlayerInfo {

@@ -1,7 +1,7 @@
 import type { $Fetch } from 'ofetch'
 import type { Driver, Storage } from 'unstorage'
 import type { AttendanceAwards, AttendanceStatus } from './game'
-import type { PlayerBinding, PlayerInfo } from './player'
+import type { AppBindingList, PlayerInfo } from './player'
 
 export interface ClientConfig {
   baseURL?: string
@@ -103,7 +103,7 @@ export interface ClientScore {
 }
 
 export interface ClientPlayer {
-  getBinding: () => Promise<PlayerBinding>
+  getBinding: () => Promise<AppBindingList>
   getInfo: (query: { uid: string }) => Promise<PlayerInfo>
 }
 
