@@ -52,6 +52,8 @@ export function createClient(config: ClientConfig = {}): Client {
       { key: STORAGE_CREDENTIAL_KEY, value: data.cred },
       { key: STORAGE_USER_ID_KEY, value: data.userId },
     ])
+
+    return data
   }
 
   async function refresh() {
@@ -80,6 +82,8 @@ export function createClient(config: ClientConfig = {}): Client {
     await storage.setItems([
       { key: STORAGE_OAUTH_TOKEN_KEY, value: data.data.token },
     ])
+
+    return data.data
   }
 
   const collections = clientCtx.call({ storage, $fetch }, buildCollections)

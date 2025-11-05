@@ -18,8 +18,14 @@ export interface ClientConfig {
 
 export interface Client {
   $fetch: $Fetch
-  signIn: (authorizeCode: string) => Promise<void>
-  refresh: () => Promise<void>
+  signIn: (authorizeCode: string) => Promise<{
+    cred: string;
+    userId: string;
+    token: string;
+  }>
+  refresh: () => Promise<{
+    token: string;
+  }>
   collections: ClientCollections
   storage: Storage<string>
 }
